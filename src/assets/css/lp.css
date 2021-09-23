@@ -1,0 +1,27 @@
+.border-thick{
+  border: 20px solid green;
+}
+
+.center-y{
+  height: 100vh;
+  display: flex;
+  align-items: center 
+}
+
+.lp-navbar{
+  background-color: grey;
+}
+
+.btn-lg{
+  font-size: 200px;
+  font-weight: 600;
+}
+
+.red-background{
+  background-color: red;
+}
+
+.side-scroll{
+  flex-wrap: inherit;
+  overflow-x: scroll;
+}

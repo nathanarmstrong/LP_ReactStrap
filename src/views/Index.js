@@ -1,15 +1,21 @@
 
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 
 // reactstrap components
-import { Row, Col } from "reactstrap";
+import { Row, Col, CardBody, Card, Form, FormGroup, Label, Input } from "reactstrap";
 
-import { Redirect} from "react-router-dom"; 
+import { Redirect, useHistory} from "react-router-dom"; 
 import Logo from '../assets/img/brand/finallogohover.png'
+import Button from "reactstrap/lib/Button";
+
+import { LOGIN_URL } from "../urls";
 
 
 const Index = (props) => {
   // const ref = useRef();
+  const history = useHistory()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
   useEffect(() => {
     // if (ref.current) {
     //   window.scrollTo({
@@ -18,6 +24,17 @@ const Index = (props) => {
     //   });
     // }
   }, [])
+
+
+  const loginUser = () => {
+    if(email && password){
+      //CALL LOGIN
+      history.push(LOGIN_URL)
+    }
+  }
+
+
+
   if(props.store.authenticated){
     return(
       <Redirect to={"/dashboard"} />
@@ -25,25 +42,29 @@ const Index = (props) => {
   }else{
     return(
       <React.Fragment>
-        {/* <h1>LANDING</h1>
-        {props.store.authenticated ? 
-        <Link to={LOGOUT_URL}>Logout (FAKE)</Link>
-        :
-        <Link to={LOGIN_URL}>Login (FAKE)</Link>
-        }
-        <Link to={APPOINTMENTS_URL}>Appointment</Link>
-        <Link to={`${EDIT_APPOINTMENT_URL}1`}>Edit Appointment</Link>
-        <Link to={`${VIEW_APPOINTMENT_URL}1`}>View Appointment</Link>
-        <Link to={DASHBOARD_URL}>Dashboard</Link>
-        <Link to={BOOKING_URL}>Bookings</Link>
-        <Link to={HISTORY_APPOINTMENTS_URL}>History</Link> */}
         <main className="landing-page">
           <section className="section-landing-cover  my-0">
             <Row>
-              <Col className="mx-auto" lg="12">
-                <div className="section-landing-content">
-                    <img alt="..." src={Logo} className="mb-5 mx-auto" />
-                </div>
+              <Col className="mx-auto center-y" lg="6">
+
+                <Card style={{width: '100%'}}>
+                  <CardBody>
+                    <div className="section-landing-content">
+                      <img alt="..." src={Logo} className="mb-5 mx-auto" />
+                    </div>
+                    <Form>
+                    <FormGroup>
+                      <Label for="exampleEmail">Email</Label>
+                      <Input type="email" name="email" id="exampleEmail" onChange={(event) => setEmail(event.target.value)} placeholder="with a placeholder" />
+                    </FormGroup>
+                    <FormGroup>
+                      <Label for="examplePassword">Password</Label>
+                      <Input type="password" name="password" id="examplePassword" onChange={(event) => setPassword(event.target.value)} placeholder="password placeholder" />
+                    </FormGroup>
+                      <Button size="lg"  onClick={() => {loginUser()}}>Login</Button>
+                    </Form>
+                  </CardBody>
+                </Card>
               </Col>
             </Row>
           </section>

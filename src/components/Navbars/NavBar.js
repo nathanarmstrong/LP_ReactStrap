@@ -8,7 +8,7 @@ import Headroom from "headroom.js";
 import Switch from "react-switch";
 // ROUTES URL
 import {
- DASHBOARD_URL
+  HOME_URL
 } from '../../urls'
 
 
@@ -69,12 +69,12 @@ const  DemoNavbar =(props) => {
       <>
         <header className="header-global">
           <Navbar
-            className="navbar-main navbar-avvy navbar-light headroom"
+            className="navbar-main lp-navbar navbar-light headroom"
             expand="lg"
             id="navbar-main"
           >
             <Container>
-              <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
+              <NavbarBrand className="mr-lg-5" to={HOME_URL} tag={Link}>
                 <img alt="..." src={Logo}></img>
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
@@ -87,7 +87,7 @@ const  DemoNavbar =(props) => {
                 Dropdown
               </DropdownToggle>
               <DropdownMenu>
-                <DropdownItem >Page</DropdownItem>
+                <DropdownItem>Page</DropdownItem>
               </DropdownMenu>
             </Dropdown>
             </Container>

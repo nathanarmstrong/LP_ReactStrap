@@ -2,11 +2,7 @@ import React, { useEffect } from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 // ROUTES URL
 import {
-  BOOKING_URL, 
-  APPOINTMENTS_URL, 
-  EDIT_APPOINTMENT_URL, 
-  VIEW_APPOINTMENT_URL, 
-  HISTORY_APPOINTMENTS_URL, 
+  POST_URL,
   DASHBOARD_URL,
   LOGIN_URL,
   LOGOUT_URL
@@ -14,19 +10,19 @@ import {
 //IMPORT ALL PAGES
 import Index from '../views/Index'
 import Dashboard from '../views/Dashboard/index.js'
-
+import ViewPost from "../views/Posts/ViewPost/index.js";
 
 
 //IMPORT NAV / FOOTER
 import NavBar from '../components/Navbars/NavBar.js'
 import Footer from '../components/Footers/Footer.js'
-
+import {HOME_URL} from '../urls'
 const AppRouter = (store) => {
 
   // SET FOR AUTHENTICATED ROUTES TO REDIRECT IF USE NOT LOGGED IN (CHECKING THE STORE/PROPS)
   const RequireAuth = ({children}) => {
     if (!store.authenticated) {
-      return <Redirect to={"/"} />;
+      return <Redirect to={HOME_URL} />;
     }
     return children;
   };
@@ -44,7 +40,7 @@ const AppRouter = (store) => {
       }))
     },[])
     return(
-      <Redirect to={"/"} />
+      <Redirect to={HOME_URL} />
     )
   }
   // TO LOGOUT OF APPLICATION CALL THE LOGOUT URL
@@ -57,7 +53,7 @@ const AppRouter = (store) => {
       }))
     },[])
     return(
-      <Redirect to={"/"} />
+      <Redirect to={HOME_URL} />
     )
   }
 
@@ -66,6 +62,8 @@ const AppRouter = (store) => {
   }
 
 
+  console.log(RouteWithId(POST_URL))
+
   return(
     <BrowserRouter>
       {/* IF AUTHENTICATED SHOW NAV BAR */}
@@ -73,13 +71,14 @@ const AppRouter = (store) => {
         <NavBar />
       }
       <Switch>
-        <Route path="/" exact render={props => <Index {...props} store={store} />} />
+        <Route path={HOME_URL} exact render={props => <Index {...props} store={store} />} />
         <Route path={LOGIN_URL} exact render={props => <FakeLogin {...props} store={store} />} />
         <RequireAuth >
           <Route path={DASHBOARD_URL} exact render={props => <Dashboard {...props} store={store} />} />
           <Route path={LOGOUT_URL} exact render={props => <FakeLogout {...props} store={store} />} />
+          <Route path={RouteWithId(POST_URL)} exact render={props => <ViewPost {...props} store={store} />} />
         </RequireAuth>
-        <Redirect to="/" />
+        <Redirect to={HOME_URL} />
       </Switch>
       {/* IF AUTHENTICATED SHOW FOOTER */}
       {store.authenticated &&
